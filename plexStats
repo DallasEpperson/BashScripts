@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cp "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" ./plexLibrary.db
+
+sqlite3 ./plexLibrary.db "select ((sum(duration)/1000)/(3600*24)) || ' days, ' || (((sum(duration)/1000)/3600)%24) || ' hours, ' || ((sum(duration)/1000)%3600/60) || ' minutes, ' || ((sum(duration)/1000)%60) || ' seconds.' from media_parts where directory_id is not null;"
+
+rm ./plexLibrary.db
